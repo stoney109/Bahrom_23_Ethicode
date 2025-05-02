@@ -1,12 +1,91 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
   <title>Ethicode | AI 편향성이란?</title>
-  <link rel="stylesheet" href="info_style.css" />
+  <link rel="stylesheet" href="information_style.css" />
 </head>
 <body>
-  <h1>정보 페이지입니다</h1>
-  <a href="main.html" class="button">← 메인으로 돌아가기</a>
+  <div class="slide-container">
+    <div class="slide">
+      <img src="image1.jpg" alt="첫 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image2.jpg" alt="두 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image3.jpg" alt="세 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image4.jpg" alt="네 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image5.jpg" alt="다섯 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image6.jpg" alt="여섯 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image7.jpg" alt="일곱 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image8.jpg" alt="여덟 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image9.jpg" alt="아홉 번째 슬라이드">
+    </div>
+    <div class="slide">
+      <img src="image10.jpg" alt="열 번째 슬라이드">
+    </div>
+
+
+    <div class="nav-buttons">
+      <button onclick="changeSlide(-1)">이전</button>
+      <button onclick="changeSlide(1)">다음</button>
+    </div>
+  </div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    slides.forEach(slide => slide.style.display = 'none');
+    if (slides[index]) {
+      slides[index].style.display = 'block';
+    }
+  }
+
+  function changeSlide(step) {
+    const newSlide = currentSlide + step;
+
+    if (newSlide >= totalSlides) {
+      window.location.href = 'main.html'; // 마지막 넘기면 이동
+      return;
+    }
+
+    if (newSlide < 0) {
+      window.location.href = 'main.html'; // 첫페이지에서 뒤로가면 이동
+      return;
+    }
+
+    currentSlide = newSlide;
+    showSlide(currentSlide);
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (event.code === 'ArrowRight' || event.code === 'Space') {
+      changeSlide(1);
+    } else if (event.code === 'ArrowLeft') {
+      changeSlide(-1);
+    }
+  });
+
+  window.onload = function () {
+    showSlide(currentSlide);
+  };
+</script>
+
 </body>
 </html>
