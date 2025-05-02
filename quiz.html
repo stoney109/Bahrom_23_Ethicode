@@ -3,54 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>OX 퀴즈 15문제</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 20px;
-    }
-    #popup {
-      display: none;
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 20px 30px;
-      border-radius: 10px;
-      font-size: 1.5em;
-      z-index: 1000;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-    img {
-      width: 300px;
-    }
-    .question {
-      font-size: 1.5em;
-      margin: 20px 0;
-    }
-    .buttons button {
-      font-size: 1.2em;
-      padding: 10px 20px;
-      margin: 10px;
-      cursor: pointer;
-    }
-    .form-container {
-      margin-top: 50px;
-    }
-    #final-form {
-      display: none;
-      margin-top: 30px;
-    }
-    textarea {
-      width: 300px;
-      height: 150px;
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
-  </style>
+  <link rel="stylesheet" href="quiz_style.css">
 </head>
 <body>
 
@@ -59,11 +12,32 @@
   <!-- 사용자 정보 입력 폼 -->
   <div id="user-form" class="form-container">
     <h2>퀴즈를 시작하기 전에 정보를 입력해주세요!</h2>
+    <p>전화번호 추첨을 통해 기프티콘 보내드리겠습니다.</p>
+    <p>많은 참여 부탁드릴게요..♡</p>
     <label for="username">이름:</label>
     <input type="text" id="username" required><br><br>
     <label for="phone">전화번호:</label>
     <input type="tel" id="phone" required><br><br>
-    <button onclick="startQuiz()">퀴즈 시작</button>
+
+    <!-- 성별 선택 -->
+    <label for="gender">성별 :</label>
+    <input type="radio" id="male" name="gender" value="남성">
+    <label for="male">남성</label>
+    <input type="radio" id="female" name="gender" value="여성">
+    <label for="female">여성</label><br><br>
+
+    <!-- 나이대 선택 -->
+    <label for="age">나이대 :</label>
+    <select id="age">
+      <option value="10대">10대</option>
+      <option value="20대">20대</option>
+      <option value="30대">30대</option>
+      <option value="40대">40대</option>
+      <option value="50대">50대</option>
+      <option value="60대 이상">60대 이상</option>
+    </select><br><br>
+
+    <button class="start-btn" onclick="startQuiz()">퀴즈 시작</button>
   </div>
 
   <div id="quiz-container" style="display:none;">
@@ -75,21 +49,26 @@
   <!-- 소감문 작성 폼 -->
   <div id="final-form">
     <h2>퀴즈가 끝났습니다! 소감문을 작성해주세요:</h2>
-    <textarea id="feedback" placeholder="소감을 적어주세요..."></textarea><br>
-    <button onclick="submitFeedback()">소감 제출</button>
+    <textarea id="feedback" placeholder="소감을 적어주세요..."></textarea><br><br>
+    <button onclick="submitFeedback()"
+    style="padding: 10px 20px; font-size: 15px;">소감 제출</button>
   </div>
 
   <script>
     let username = '';
     let phone = '';
+    let gender = '';
+    let age = '';
 
     // 사용자 정보를 입력받고 퀴즈 시작
     function startQuiz() {
       username = document.getElementById("username").value;
       phone = document.getElementById("phone").value;
+      gender = document.querySelector('input[name="gender"]:checked')?.value;
+      age = document.getElementById("age").value;
 
-      if (!username || !phone) {
-        alert("이름과 전화번호를 모두 입력해주세요.");
+      if (!username || !phone || !gender || !age) {
+        alert("모든 항목을 입력해주세요.");
         return;
       }
 
@@ -104,21 +83,21 @@
 
     // 퀴즈 데이터 (이미지 파일은 로컬에서 불러옵니다.)
     const quizData = [
-      { question: "이 사진은 고양이이다.", img: "images/q1.jpg", answer: "O" },
-      { question: "이것은 오렌지이다.", img: "images/q2.jpg", answer: "X" },
-      { question: "이것은 사과이다.", img: "images/q3.jpg", answer: "O" },
-      { question: "이 사진은 강아지이다.", img: "images/q4.jpg", answer: "O" },
-      { question: "이것은 자동차이다.", img: "images/q5.jpg", answer: "X" },
-      { question: "이 사진은 바다이다.", img: "images/q6.jpg", answer: "O" },
-      { question: "이것은 과일이다.", img: "images/q7.jpg", answer: "X" },
-      { question: "이 사진은 배이다.", img: "images/q8.jpg", answer: "O" },
-      { question: "이것은 집이다.", img: "images/q9.jpg", answer: "X" },
-      { question: "이 사진은 산이다.", img: "images/q10.jpg", answer: "O" },
-      { question: "이것은 기계이다.", img: "images/q11.jpg", answer: "X" },
-      { question: "이 사진은 공원이다.", img: "images/q12.jpg", answer: "O" },
-      { question: "이것은 동물이다.", img: "images/q13.jpg", answer: "X" },
-      { question: "이 사진은 나무이다.", img: "images/q14.jpg", answer: "O" },
-      { question: "이것은 꽃이다.", img: "images/q15.jpg", answer: "X" }
+      { question: "범죄자일까요?🕵️", img: "images/q1.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q2.jpg", answer: "X" },
+      { question: "범죄자일까요?🕵️", img: "images/q3.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q4.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q5.jpg", answer: "X" },
+      { question: "범죄자일까요?🕵️", img: "images/q6.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q7.jpg", answer: "X" },
+      { question: "범죄자일까요?🕵️", img: "images/q8.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q9.jpg", answer: "X" },
+      { question: "범죄자일까요?🕵️", img: "images/q10.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q11.jpg", answer: "X" },
+      { question: "범죄자일까요?🕵️", img: "images/q12.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q13.jpg", answer: "X" },
+      { question: "범죄자일까요?🕵️", img: "images/q14.jpg", answer: "O" },
+      { question: "범죄자일까요?🕵️", img: "images/q15.jpg", answer: "X" }
     ];
 
     let currentQuestion = 0; // 현재 문제 번호
@@ -147,8 +126,8 @@
       if (currentQuestion < quizData.length) {
         const questionData = quizData[currentQuestion];
         quizContainer.innerHTML = `
-          <img src="${questionData.img}" alt="문제 이미지">
           <div class="question">${questionData.question}</div>
+          <img src="${questionData.img}" alt="문제 이미지">
           <div class="buttons">
             <button onclick="checkAnswer('O')">O</button>
             <button onclick="checkAnswer('X')">X</button>
@@ -184,8 +163,23 @@
         alert("소감문을 작성해주세요.");
         return;
       }
-      alert("소감문이 제출되었습니다. 감사합니다!");
-      // 소감문을 서버로 보내거나 처리하는 로직을 추가할 수 있습니다.
+
+      // 팝업 표시
+        // 팝업 표시
+  const popup = document.getElementById("popup");
+  popup.innerText = "정보도 한 번 확인해 주세요";
+  popup.style.display = "block";
+  popup.style.opacity = 1;
+
+  // 2초 후 main.html로 이동
+  setTimeout(() => {
+    popup.style.opacity = 0;
+    setTimeout(() => {
+      popup.style.display = "none";
+      window.location.href = "main.html";
+    }, 500); // fade-out 시간
+  }, 2000);
+
     }
   </script>
 
