@@ -1,0 +1,45 @@
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.center-box {
+  display: flex;
+  justify-content: center;   /* 가로 중앙 */
+  align-items: center;       /* 세로 중앙 */
+  height: 100vh;             /* 화면 전체 높이 */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;  /* 가로 가운데 정렬 */
+  gap: 20px;                /* 버튼 사이 간격 */
+  margin-top: 50px;
+}
+
+.btn {
+  padding: 15px 30px;       /* 버튼 크기 (상하, 좌우) */
+  font-size: 18px;          /* 글자 크기 */
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
