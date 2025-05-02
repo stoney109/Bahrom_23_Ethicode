@@ -1,0 +1,109 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-size: 1.5em;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+img {
+  width: 300px;
+}
+
+.question {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.buttons button {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.form-container {
+  margin-top: 50px;
+  text-align: left;
+  font-size: 1.3em;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#final-form {
+  display: none;
+  margin-top: 30px;
+}
+
+textarea {
+  width: 300px;
+  height: 150px;
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+.start-btn {
+  font-size: 1.3em;
+  padding: 13px 30px;
+  background-color: #7b4b1c;
+  color: white;
+  border: 2px solid #3e2d1b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.start-btn:hover {
+  background-color: #5c3513;
+  transform: translateY(-2px);
+}
+
+.button-group button {
+  margin: 3px;
+  padding: 8px 13px;
+  font-size: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-group button:hover {
+  background-color: #e0e0e0;
+}
+
+.button-group button.selected {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+/* 나이대 select 및 option 크기 조정 */
+#age {
+  font-size: 15px; /* 폰트 크기 키우기 */
+  padding: 8px;   /* 여백 조정 */
+  width: 150px;    /* 너비 조정 (필요시 변경) */
+}
+
+#age option {
+  font-size: 15px; /* option 항목의 폰트 크기 키우기 */
+  padding: 10px;   /* 여백 조정 */
+}
+
