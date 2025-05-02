@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title> 퀴즈 페이지</title>
+  <meta charset="UTF-8">
+  <title>OX 퀴즈</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    img {
+      width: 300px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .question {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    .buttons button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h1>퀴즈 페이지입니다</h1>
-  <a href="main.html" class="button">← 메인으로 돌아가기</a>
+
+  <h2>OX 퀴즈</h2>
+
+  <!-- 사진
+  <img src="images/example.jpg" alt="퀴즈 이미지">
+-->
+
+  <!-- 질문 -->
+  <div class="question">
+    이 사진은 고양이이다.
+  </div>
+
+  <!-- OX 버튼 -->
+  <div class="buttons">
+    <button onclick="alert('정답입니다!')">O</button>
+    <button onclick="alert('틀렸습니다!')">X</button>
+  </div>
+
 </body>
 </html>
