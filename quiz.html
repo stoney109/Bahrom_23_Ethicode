@@ -11,13 +11,22 @@
 
   <!-- 사용자 정보 입력 폼 -->
   <div id="user-form" class="form-container">
-    <h2>퀴즈를 시작하기 전에 정보를 입력해주세요!</h2>
-    <p>전화번호 추첨을 통해 기프티콘 보내드리겠습니다.</p>
+    <h2> 퀴즈를 시작하기 전에 정보를 입력해주세요! </h2>
+    <p> 전화번호 추첨을 통해 기프티콘 보내드리겠습니다. </p>
     <p>많은 참여 부탁드릴게요..♡</p>
     <label for="username">이름:</label>
     <input type="text" id="username" required><br><br>
-    <label for="phone">전화번호:</label>
-    <input type="tel" id="phone" required><br><br>
+    <label for="phone">전화번호:</label><br>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      required
+      pattern="^01[016789]-?\d{3,4}-?\d{4}$"
+      placeholder="예: 010-1234-5678"
+      title="전화번호 형식이 올바르지 않습니다. (예: 010-1234-5678 또는 01012345678)" />
+
+<br><br>
 
     <!-- 성별 선택 -->
     <label for="gender">성별 :</label>
@@ -82,23 +91,24 @@
     }
 
     // 퀴즈 데이터 (이미지 파일은 로컬에서 불러옵니다.)
-    const quizData = [
-      { question: "범죄자일까요?🕵️", img: "images/q1.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q2.jpg", answer: "X" },
-      { question: "범죄자일까요?🕵️", img: "images/q3.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q4.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q5.jpg", answer: "X" },
-      { question: "범죄자일까요?🕵️", img: "images/q6.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q7.jpg", answer: "X" },
-      { question: "범죄자일까요?🕵️", img: "images/q8.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q9.jpg", answer: "X" },
-      { question: "범죄자일까요?🕵️", img: "images/q10.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q11.jpg", answer: "X" },
-      { question: "범죄자일까요?🕵️", img: "images/q12.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q13.jpg", answer: "X" },
-      { question: "범죄자일까요?🕵️", img: "images/q14.jpg", answer: "O" },
-      { question: "범죄자일까요?🕵️", img: "images/q15.jpg", answer: "X" }
-    ];
+     const quizData = [
+      { question: "범죄자일까요?🕵️", img: "images/q1.jpg", answer: "O", info: "인물정보1" },
+      { question: "범죄자일까요?🕵️", img: "images/q2.jpg", answer: "X", info: "인물정보2" },
+      { question: "범죄자일까요?🕵️", img: "images/q3.jpg", answer: "O", info: "인물정보3" },
+      { question: "범죄자일까요?🕵️", img: "images/q4.jpg", answer: "O", info: "인물정보4" },
+      { question: "범죄자일까요?🕵️", img: "images/q5.jpg", answer: "X", info: "인물정보5" },
+      { question: "범죄자일까요?🕵️", img: "images/q6.jpg", answer: "O", info: "인물정보6" },
+      { question: "범죄자일까요?🕵️", img: "images/q7.jpg", answer: "X", info: "인물정보7" },
+      { question: "범죄자일까요?🕵️", img: "images/q8.jpg", answer: "O", info: "인물정보8" },
+      { question: "범죄자일까요?🕵️", img: "images/q9.jpg", answer: "X", info: "인물정보9" },
+      { question: "범죄자일까요?🕵️", img: "images/q10.jpg", answer: "O", info: "인물정보10" },
+      { question: "범죄자일까요?🕵️", img: "images/q11.jpg", answer: "X", info: "인물정보11" },
+      { question: "범죄자일까요?🕵️", img: "images/q12.jpg", answer: "O", info: "인물정보12" },
+      { question: "범죄자일까요?🕵️", img: "images/q13.jpg", answer: "X", info: "인물정보13" },
+      { question: "범죄자일까요?🕵️", img: "images/q14.jpg", answer: "O", info: "인물정보14" },
+      { question: "범죄자일까요?🕵️", img: "images/q15.jpg", answer: "X", info: "인물정보15" }
+];
+
 
     let currentQuestion = 0; // 현재 문제 번호
     let score = 0; // 점수
@@ -126,13 +136,21 @@
       if (currentQuestion < quizData.length) {
         const questionData = quizData[currentQuestion];
         quizContainer.innerHTML = `
-          <div class="question">${questionData.question}</div>
-          <img src="${questionData.img}" alt="문제 이미지">
-          <div class="buttons">
-            <button onclick="checkAnswer('O')">O</button>
-            <button onclick="checkAnswer('X')">X</button>
-          </div>
-        `;
+    <div class="question">${questionData.question}</div>
+    <div class="quiz-content">
+    <img src="${questionData.img}" alt="문제 이미지" class="quiz-img">
+    <div class="info-box">
+      <p>👤 <strong>인물 정보</strong></p>
+      <p>${questionData.info}</p>
+    </div>
+
+  </div>
+  <div class="buttons">
+    <button onclick="checkAnswer('O')">O</button>
+    <button onclick="checkAnswer('X')">X</button>
+  </div>
+`;
+
       } else {
         // 마지막 문제를 마친 후 점수 출력 및 소감문 작성 폼 표시
         quizContainer.innerHTML = `<h2>퀴즈 종료! 당신의 점수는 ${score}점입니다.</h2>`;
@@ -164,8 +182,8 @@
         return;
       }
 
+
       // 팝업 표시
-        // 팝업 표시
   const popup = document.getElementById("popup");
   popup.innerText = "정보도 한 번 확인해 주세요";
   popup.style.display = "block";
