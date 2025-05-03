@@ -73,25 +73,25 @@
 
     // 사용자 정보를 입력받고 퀴즈 시작
     function startQuiz(event) {
-  event.preventDefault(); // 기본 form 제출 막기
+    event.preventDefault(); // 기본 form 제출 막기
 
-  const form = document.getElementById("user-form");
+    const form = document.getElementById("user-form");
 
-  if (!form.checkValidity()) {
-    form.reportValidity(); // 브라우저가 자동으로 경고창 띄워줌
+    if (!form.checkValidity()) {
+      form.reportValidity(); // 브라우저가 자동으로 경고창 띄워줌
+      return false;
+    }
+
+    username = document.getElementById("username").value;
+    phone = document.getElementById("phone").value;
+    gender = document.querySelector('input[name="gender"]:checked')?.value;
+    age = document.getElementById("age").value;
+
+    document.getElementById("user-form").style.display = "none";
+    document.getElementById("quiz-container").style.display = "block";
+    loadQuestion();
+
     return false;
-  }
-
-  username = document.getElementById("username").value;
-  phone = document.getElementById("phone").value;
-  gender = document.querySelector('input[name="gender"]:checked')?.value;
-  age = document.getElementById("age").value;
-
-  document.getElementById("user-form").style.display = "none";
-  document.getElementById("quiz-container").style.display = "block";
-  loadQuestion();
-
-  return false;
 }
 
 
