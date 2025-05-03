@@ -10,44 +10,46 @@
   <h1>OX 퀴즈 15문제</h1>
 
   <!-- 사용자 정보 입력 폼 -->
-  <div id="user-form" class="form-container">
-    <h2> 퀴즈를 시작하기 전에 정보를 입력해주세요! </h2>
-    <p> 전화번호 추첨을 통해 기프티콘 보내드리겠습니다. </p>
-    <p>많은 참여 부탁드릴게요..♡</p>
-    <label for="username">이름:</label>
-    <input type="text" id="username" required><br><br>
-    <label for="phone">전화번호:</label><br>
-    <input
-      type="tel"
-      id="phone"
-      name="phone"
-      required
-      pattern="^01[016789]-?\d{3,4}-?\d{4}$"
-      placeholder="예: 010-1234-5678"
-      title="전화번호 형식이 올바르지 않습니다. (예: 010-1234-5678 또는 01012345678)" />
+<form id="user-form" class="form-container" onsubmit="startQuiz(event)">
+  <h2>퀴즈를 시작하기 전에 정보를 입력해주세요!</h2>
+  <p>전화번호 추첨을 통해 기프티콘 보내드리겠습니다.</p>
+  <p>많은 참여 부탁드릴게요..♡</p>
 
-<br><br>
+  <label for="username">이름:</label>
+  <input type="text" id="username" name="username" required><br><br>
 
-    <!-- 성별 선택 -->
-    <label for="gender">성별 :</label>
-    <input type="radio" id="male" name="gender" value="남성">
-    <label for="male">남성</label>
-    <input type="radio" id="female" name="gender" value="여성">
-    <label for="female">여성</label><br><br>
+  <label for="phone">전화번호:</label><br>
+  <input
+    type="tel"
+    id="phone"
+    name="phone"
+    required
+    pattern="^01[016789]-?\d{3,4}-?\d{4}$"
+    placeholder="예: 010-1234-5678"
+    title="전화번호 형식이 올바르지 않습니다. (예: 010-1234-5678 또는 01012345678)" /><br><br>
 
-    <!-- 나이대 선택 -->
-    <label for="age">나이대 :</label>
-    <select id="age">
-      <option value="10대">10대</option>
-      <option value="20대">20대</option>
-      <option value="30대">30대</option>
-      <option value="40대">40대</option>
-      <option value="50대">50대</option>
-      <option value="60대 이상">60대 이상</option>
-    </select><br><br>
+  <!-- 성별 선택 -->
+  <label>성별 :</label>
+  <input type="radio" id="male" name="gender" value="남성" required>
+  <label for="male">남성</label>
+  <input type="radio" id="female" name="gender" value="여성" required>
+  <label for="female">여성</label><br><br>
 
-    <button class="start-btn" onclick="startQuiz()">퀴즈 시작</button>
-  </div>
+  <!-- 나이대 선택 -->
+  <label for="age">나이대 :</label>
+  <select id="age" name="age" required>
+    <option value="">선택하세요</option>
+    <option value="10대">10대</option>
+    <option value="20대">20대</option>
+    <option value="30대">30대</option>
+    <option value="40대">40대</option>
+    <option value="50대">50대</option>
+    <option value="60대 이상">60대 이상</option>
+  </select><br><br>
+
+  <button class="start-btn" type="submit">퀴즈 시작</button>
+</form>
+
 
   <div id="quiz-container" style="display:none;">
     <!-- 문제 내용이 여기에 동적으로 삽입됩니다. -->
@@ -70,25 +72,28 @@
     let age = '';
 
     // 사용자 정보를 입력받고 퀴즈 시작
-    function startQuiz() {
-      username = document.getElementById("username").value;
-      phone = document.getElementById("phone").value;
-      gender = document.querySelector('input[name="gender"]:checked')?.value;
-      age = document.getElementById("age").value;
+    function startQuiz(event) {
+  event.preventDefault(); // 기본 form 제출 막기
 
-      if (!username || !phone || !gender || !age) {
-        alert("모든 항목을 입력해주세요.");
-        return;
-      }
+  const form = document.getElementById("user-form");
 
-      // 사용자 정보 입력 폼 숨기기
-      document.getElementById("user-form").style.display = "none";
+  if (!form.checkValidity()) {
+    form.reportValidity(); // 브라우저가 자동으로 경고창 띄워줌
+    return false;
+  }
 
-      // 퀴즈 화면 보이기
-      document.getElementById("quiz-container").style.display = "block";
+  username = document.getElementById("username").value;
+  phone = document.getElementById("phone").value;
+  gender = document.querySelector('input[name="gender"]:checked')?.value;
+  age = document.getElementById("age").value;
 
-      loadQuestion(); // 첫 번째 문제 로드
-    }
+  document.getElementById("user-form").style.display = "none";
+  document.getElementById("quiz-container").style.display = "block";
+  loadQuestion();
+
+  return false;
+}
+
 
     // 퀴즈 데이터 (이미지 파일은 로컬에서 불러옵니다.)
      const quizData = [
