@@ -5,6 +5,9 @@
   <title>Ethicode | AI 편향성이란?</title>
   <link rel="stylesheet" href="information_style.css" />
 </head>
+
+
+
 <body>
   <div class="slide-container">
     <div class="slide">
@@ -43,6 +46,13 @@
       <button onclick="changeSlide(-1)">이전</button>
       <button onclick="changeSlide(1)">다음</button>
     </div>
+
+    <div style="height: 20px;"></div>
+
+    <div class="bottom-nav">
+  <button onclick="goToMain()">메인으로</button>
+  </div>
+
   </div>
 
 <script>
@@ -85,6 +95,13 @@
   window.onload = function () {
     showSlide(currentSlide);
   };
+
+  // main으로 이동하는 버튼 추가
+  function goToMain() {
+    window.location.href = 'main.html';
+  }
+
+
 </script>
 
 </body>
