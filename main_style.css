@@ -9,22 +9,32 @@ body {
   padding: 0;
 }
 
+/* -------------------------- */
+/* 메인 컨테이너 스타일 */
+/* -------------------------- */
 .container {
-  background: rgba(255, 248, 220, 0.9);
-  padding: 50px;
-  max-width: 600px;
-  margin: 80px auto;
-  border: 2px solid #4e3e2a;
-  box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+  background:
+    linear-gradient(135deg, #fff7d6, #f6e6be),
+    url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  background-blend-mode: overlay;
+  padding: 60px 60px;
+  max-width: 800px;
+  margin: 60px auto;
+  border: none;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
+/* 상단 헤더 */
 header {
   text-align: center;
+  margin-bottom: 24px;
 }
 
 .icon {
-  width: 150px; /* or 100~150px 원하는 사이즈 */
-  margin-bottom: 10px;
+  width: 200px; /* or 100~150px 원하는 사이즈 */
+  margin-bottom: -20px;
 }
 
 h1 {
@@ -36,6 +46,7 @@ h1 {
   color: #7b4b1c;
 }
 
+/* 인트로 문장 */
 .intro {
   text-align: center;
   margin: 20px 0;
@@ -49,6 +60,7 @@ h1 {
   margin-top: 30px;
 }
 
+/* 버튼 스타일 공통 */
 .btn {
   display: flex;
   align-items: center;
