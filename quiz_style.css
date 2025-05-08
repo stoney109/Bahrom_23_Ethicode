@@ -250,3 +250,10 @@ label {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* -------------------------- */
+/* 화면 전환 영역 */
+/* -------------------------- */
+#quiz-container {
+  transition: opacity 0.5s ease-in-out;
+}
