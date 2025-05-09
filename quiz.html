@@ -2,7 +2,6 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ethicode | OX 퀴즈 15문제</title>
   <link rel="stylesheet" href="quiz_style.css" />
 </head>
@@ -224,19 +223,19 @@ document.getElementById("final-form").style.display = "block";
       .then(() => {
         console.log("Firebase 저장 성공!");
 
-        const popup = document.getElementById("popup");
-        popup.innerText = "탐정이 되고 싶어? 그럼 읽도록";
+      const popup = document.getElementById("popup");
+        popup.innerText = "정보 수첩으로 이동 중 🕵️‍♂️";
         popup.style.display = "block";
         popup.style.opacity = 1;
 
-        // 2초 후 main.html로 이동
+        // 2초 후 information.html로 이동
         setTimeout(() => {
           popup.style.opacity = 0;
           setTimeout(() => {
             popup.style.display = "none";
             window.location.href = "information.html";
           }, 500); // fade-out 시간
-        }, 2000);
+        }, 3000);
       })
       .catch((error) => {
         console.error("Firebase 저장 실패:", error);
