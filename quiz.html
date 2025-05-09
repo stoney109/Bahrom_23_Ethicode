@@ -158,7 +158,21 @@
           }, 50);
         };
       } else {
-        quizContainer.innerHTML = `<h2>퀴즈 종료! 당신의 점수는 ${score}점입니다.</h2>`;
+        let resultMessage = '';
+      if (score >= 12) {
+        resultMessage = '훗, 우수한 탐정이군. 그래도 정보 수첩으 한번 확인해봐.';
+      } else if (score >= 6) {
+        resultMessage = '조금만 더 노력하면, 우수한 탐정이 될 수 있겠는 걸? 정보 수첩을 한 번 읽어보게나.';
+      } else {
+        resultMessage = '탐정이 되기 위해 노력이 필요하겠는 걸... 정보 수첩을 읽어보게나.';
+      }
+
+quizContainer.innerHTML = `
+  <h2>퀴즈 종료! 당신의 점수는 ${score}점입니다.</h2>
+  <p class="result-message">${resultMessage}</p>
+`;
+
+document.getElementById("final-form").style.display = "block";
         document.getElementById("final-form").style.display = "block";
       }
     }
