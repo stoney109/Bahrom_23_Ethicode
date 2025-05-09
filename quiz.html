@@ -28,11 +28,11 @@
       <div class="form-row">
         <label for="phone1">전화번호：</label>
         <div class="phone-wrapper">
-          <input type="text" id="phone1" maxlength="3" class="phone-part" pattern="[0-9]*" inputmode="numeric">
+          <input type="text" id="phone1" minlength = "3" maxlength="3" class="phone-part" pattern="[0-9]*" inputmode="numeric">
           <span>-</span>
-          <input type="text" id="phone2" maxlength="4" class="phone-part" pattern="[0-9]*" inputmode="numeric">
+          <input type="text" id="phone2" minlength = "3" maxlength="4" class="phone-part" pattern="[0-9]*" inputmode="numeric">
           <span>-</span>
-          <input type="text" id="phone3" maxlength="4" class="phone-part" pattern="[0-9]*" inputmode="numeric">
+          <input type="text" id="phone3" minlength = "3" maxlength="4" class="phone-part" pattern="[0-9]*" inputmode="numeric">
         </div>
       </div>
 
@@ -94,10 +94,15 @@
       //gender = document.querySelector('input[name="gender"]:checked')?.value;
       //age = document.getElementById("age").value;
 
-      if (!username || !phone1 || !phone2 || !phone3) {
-        alert("모든 항목을 입력해주세요.");
-        return;
-      }
+      if (
+        !username ||
+        phone1.length < 3 ||
+        phone2.length < 3 ||
+        phone3.length < 4
+      ) {
+      alert("모든 항목을 정확히 입력해주세요.");
+      return;
+    }
 
       // 사용자 정보 입력 폼 숨기기
       document.getElementById("user-form").style.display = "none";
