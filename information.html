@@ -2,107 +2,67 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-  <title>Ethicode | AI 편향성이란?</title>
+  <title>Ethicode | 정보 수첩</title>
   <link rel="stylesheet" href="information_style.css" />
 </head>
 
-
-
 <body>
   <div class="slide-container">
-    <div class="slide">
-      <img src="image1.jpg" alt="첫 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image2.jpg" alt="두 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image3.jpg" alt="세 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image4.jpg" alt="네 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image5.jpg" alt="다섯 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image6.jpg" alt="여섯 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image7.jpg" alt="일곱 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image8.jpg" alt="여덟 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image9.jpg" alt="아홉 번째 슬라이드">
-    </div>
-    <div class="slide">
-      <img src="image10.jpg" alt="열 번째 슬라이드">
-    </div>
-
-
-    <div class="nav-buttons">
-      <button onclick="changeSlide(-1)">이전</button>
-      <button onclick="changeSlide(1)">다음</button>
-    </div>
-
-    <div style="height: 20px;"></div>
-
-    <div class="bottom-nav">
-  <button onclick="goToMain()">메인으로</button>
+    <div class="slide active"><img src="info/001.jpg" alt="1"></div>
+    <div class="slide"><img src="info/002.jpg" alt="2"></div>
+    <div class="slide"><img src="info/003.jpg" alt="3"></div>
+    <div class="slide"><img src="info/004.jpg" alt="4"></div>
+    <div class="slide"><img src="info/005.jpg" alt="5"></div>
+    <div class="slide"><img src="info/006.jpg" alt="6"></div>
+    <div class="slide"><img src="info/007.jpg" alt="7"></div>
+    <div class="slide"><img src="info/008.jpg" alt="8"></div>
+    <div class="slide"><img src="info/009.jpg" alt="9"></div>
+    <div class="slide"><img src="info/010.jpg" alt="10"></div>
+    <div class="slide"><img src="info/011.jpg" alt="11"></div>
+    <div class="slide"><img src="info/012.jpg" alt="12"></div>
   </div>
 
+  <div class="fixed-bottom">
+    <button onclick="goToMain()">메인으로</button>
   </div>
 
-<script>
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slide');
-  const totalSlides = slides.length;
+  <script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    let ticking = false;
 
-  function showSlide(index) {
-    slides.forEach(slide => slide.style.display = 'none');
-    if (slides[index]) {
-      slides[index].style.display = 'block';
-    }
-  }
-
-  function changeSlide(step) {
-    const newSlide = currentSlide + step;
-
-    if (newSlide >= totalSlides) {
-      window.location.href = 'main.html'; // 마지막 넘기면 이동
-      return;
+    function showSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.remove('active');
+        if (i === index) s.classList.add('active');
+      });
     }
 
-    if (newSlide < 0) {
-      window.location.href = 'main.html'; // 첫페이지에서 뒤로가면 이동
-      return;
+    window.addEventListener('wheel', (e) => {
+      if (ticking) return;
+      ticking = true;
+      if (e.deltaY > 0 && current < slides.length - 1) current++;
+      else if (e.deltaY < 0 && current > 0) current--;
+      showSlide(current);
+      setTimeout(() => ticking = false, 700);
+    });
+
+    let touchStartY = 0;
+    window.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY);
+    window.addEventListener('touchend', e => {
+      const deltaY = e.changedTouches[0].clientY - touchStartY;
+      if (ticking) return;
+      ticking = true;
+      if (deltaY < -30 && current < slides.length - 1) current++;
+      else if (deltaY > 30 && current > 0) current--;
+      showSlide(current);
+      setTimeout(() => ticking = false, 700);
+    });
+
+    window.onload = () => showSlide(current);
+    function goToMain() {
+      window.location.href = 'main.html';
     }
-
-    currentSlide = newSlide;
-    showSlide(currentSlide);
-  }
-
-  document.addEventListener('keydown', function (event) {
-    if (event.code === 'ArrowRight' || event.code === 'Space') {
-      changeSlide(1);
-    } else if (event.code === 'ArrowLeft') {
-      changeSlide(-1);
-    }
-  });
-
-  window.onload = function () {
-    showSlide(currentSlide);
-  };
-
-  // main으로 이동하는 버튼 추가
-  function goToMain() {
-    window.location.href = 'main.html';
-  }
-
-
-</script>
-
+  </script>
 </body>
 </html>
