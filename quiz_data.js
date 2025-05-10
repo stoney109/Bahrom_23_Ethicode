@@ -1,14 +1,14 @@
 const quizData = [
   {
     id: "1",
-    img: "images/Jacinta.png",
-    answer: "X",
-    name: "Jacinta Francisco Marcial",
-    birth: "1963년",
-    origin: "멕시코",
-    heightWeight: "정보없음 / 정보없음",
-    race: "오토미족(멕시칸)",
-    crime: "없음"
+    img: "images/Charles.png",
+    answer: "O",
+    name: "Charles Lee Hill",
+    birth: "1949년",
+    origin: "미국",
+    heightWeight: "178cm / 76kg",
+    race: "흑인",
+    crime: "살인, 항공기 납치, 불법 도주"
   },
   {
     id: "2",
@@ -34,14 +34,14 @@ const quizData = [
   },
   {
     id: "4",
-    img: "images/OMID.png",
-    answer: "O",
-    name: "Omid Ghaffarinia",
-    birth: "1990년",
-    origin: "이란",
-    heightWeight: "168cm / 64kg",
-    race: "정보없음",
-    crime: "컴퓨터 침입 공모 및 방조"
+    img: "images/Tanja.png",
+    answer: "X",
+    name: "Tanja Heinmann",
+    birth: "1987년",
+    origin: "독일",
+    heightWeight: "170cm / 61kg",
+    race: "아시안",
+    crime: "없음"
   },
   {
     id: "5",
@@ -56,13 +56,13 @@ const quizData = [
   },
   {
     id: "6",
-    img: "images/Tanja.png",
+    img: "images/Kevin.png",
     answer: "X",
-    name: "Tanja Heinmann",
-    birth: "1987년",
-    origin: "독일",
-    heightWeight: "170cm / 61kg",
-    race: "아시안",
+    name: "Kevin Richardson",
+    birth: "1979년",
+    origin: "미국",
+    heightWeight: "175cm / 71kg",
+    race: "흑인",
     crime: "없음"
   },
   {
