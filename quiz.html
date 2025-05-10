@@ -16,8 +16,15 @@
     <div id="user-form" class="form-container">
       <p class="intro">
         퀴즈를 시작하기 전에 정보를 입력해주세요!<br>
-        전화번호 추첨을 통해 기프티콘 보내드리겠습니다.<br>
-        많은 참여 부탁드릴게요..♡
+        전화번호 추첨을 통해 기프티콘을 보내드릴 예정입니다.<br><br>
+
+        <span style="color: #a0522d; font-weight: bold;">
+          ⚠️ 본 퀴즈는 실제 사례를 기반으로 구성되었습니다.
+        </span><br>
+        - 범죄자 정보는 FBI 공개 자료를 바탕으로 하였으며,<br>
+        - 비범죄자는 누명을 쓰거나 잘못 지목되었던 실제 인물들의 정보를 기반으로 합니다.<br><br>
+
+        우리는 무엇을 보고 판단하게 될까요? 함께 추리해봅시다!🔍
       </p>
 
       <div class="form-row">
@@ -42,6 +49,9 @@
 
     <!-- 퀴즈 영역 -->
     <div id="quiz-container" style="display:none;"></div>
+
+    <!-- overlay  -->
+<div id="overlay" style="display:none;"></div>
 
     <!-- 정답 여부 팝업 -->
     <div id="popup"></div>
@@ -79,6 +89,7 @@
 
     let currentQuestion = 0; // 현재 문제 번호
     let score = 0; // 점수
+    let userAnswers = []; // 정답 OX 여부 배열
 
 
     // 사용자 정보를 입력받고 퀴즈 시작
@@ -131,14 +142,16 @@
           quizContainer.innerHTML = `
             <div class="quiz-flex-box">
               <div class="left-side">
-                <img src="${q.img}" alt="문제 이미지" class="profile-img" />
+                <div class="photo-frame">
+                  <img src="${q.img}" alt="문제 이미지" class="profile-img" />
+                </div>
               </div>
 
               <div class="right-side">
                 <div class="profile-info">
-                  <p><strong>이름:</strong> ${q.name}</p>
-                  <p><strong>생년월일/나이：</strong> ${q.birth} / ${q.age}</p>
-                  <p><strong>출생지 / 국적：</strong> ${q.origin}</p>
+                  <p><strong>이름：</strong> ${q.name}</p>
+                  <p><strong>출생연도：</strong> ${q.birth}
+                  <p><strong>국적：</strong> ${q.origin}</p>
                   <p><strong>키 / 몸무게：</strong> ${q.heightWeight}</p>
                   <p><strong>인종：</strong> ${q.race}</p>
                 </div>
@@ -180,28 +193,41 @@ document.getElementById("final-form").style.display = "block";
       const correctAnswer = quizData[currentQuestion].answer;
       const isCorrect = userAnswer === correctAnswer;
       if (isCorrect) score++;
+
+      userAnswers.push(isCorrect ? 1 : 0);  // 1이면 정답, 0이면 오답
+
       showPopup(isCorrect);
     }
 
     // 팝업을 표시하는 함수
     function showPopup(isCorrect) {
       const popup = document.getElementById("popup");
+      const overlay = document.getElementById("overlay");
       const quizContainer = document.getElementById("quiz-container");
-      
-      popup.innerText = isCorrect ? "정답입니다!" : "틀렸습니다!";
+      const currentData = quizData[currentQuestion];
+
+      // 정답 여부 기본 메시지
+      let popupMessage = isCorrect ? "정답입니다!" : "오답입니다!";
+
+      // 범죄자인 경우, 정오답 관계없이 범죄 내용 보여줌
+      if (currentData.answer === "O" && currentData.crime && currentData.crime !== "없음") {
+        popupMessage += `\n📌 범죄 내용: ${currentData.crime}`;
+      }
+
+      // 팝업 및 배경 표시
+      popup.innerText = popupMessage;
       popup.style.display = "block";
       popup.style.opacity = 1;
+      overlay.style.display = "block";
 
       // 1.5초 후 자동으로 팝업 숨기기
       setTimeout(() => {
         popup.style.opacity = 0;
         setTimeout(() => {
           popup.style.display = "none";
+          overlay.style.display = "none";
           currentQuestion++;
           loadQuestion();   // 다음 문제로 이동
-          setTimeout(() => {
-          quizContainer.style.opacity = 1;
-          }, 100);
         }, 500);
       }, 1500);
     }
@@ -217,6 +243,7 @@ document.getElementById("final-form").style.display = "block";
         username,
         phone,
         score,
+        answers: userAnswers,
         feedback,
         timestamp: new Date()
       })
