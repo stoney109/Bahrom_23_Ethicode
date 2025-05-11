@@ -1,0 +1,17 @@
+
+/* 기존 스타일 생략 */
+
+/* 반응형 추가 */
+@media (max-width: 768px) {
+  .slide img {
+    height: auto;
+    width: 100%;
+    transform: scale(1.01);
+  }
+
+  .fixed-bottom button {
+    font-size: 16px;
+    padding: 10px 18px;
+    min-width: 90px;
+  }
+}
