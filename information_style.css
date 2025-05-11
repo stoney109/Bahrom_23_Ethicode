@@ -95,7 +95,8 @@ body::before {
   background: #7b4b1c;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  border: 1px solid #3e2d1b;
   min-width: 100px;
   transition: background 0.3s;
   font-family: 'Special Elite', serif;
