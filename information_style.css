@@ -1,4 +1,11 @@
 body {
+  display: flex;
+  justify-content: center;    /* 가로 가운데 */
+  align-items: center;        /* 세로 가운데 */
+  height: 100vh;              /* 전체 화면 높이 */
+  margin: 0;
+  padding: 0;
+
   background: url('background/background (2).jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Special Elite', serif;
@@ -65,6 +72,10 @@ body::before {
   opacity: 0;
   transition: opacity 0.6s ease;
   z-index: 0;
+
+  display: flex;              /* ✅ 추가 */
+  justify-content: center;    /* 가로 정렬 */
+  align-items: center;        /* 세로 정렬 */
 }
 
 .slide.active {
@@ -90,8 +101,8 @@ body::before {
 }
 
 .fixed-bottom button {
-  padding: 12px 24px;
-  font-size: 18px;
+  padding: 10px 24px;
+  font-size: 16px;
   background: #7b4b1c;
   color: white;
   border: none;

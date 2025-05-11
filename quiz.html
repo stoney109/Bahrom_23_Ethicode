@@ -248,12 +248,13 @@ document.getElementById("final-form").style.display = "block";
           overlay.style.display = "none";
           currentQuestion++;
           loadQuestion();   // 다음 문제로 이동
-        }, 500);
+        }, 200);
       }, 1300);
     }
 
     function submitFeedback() {
       const feedback = document.getElementById("feedback").value;
+
       if (feedback.trim() === "") {
         alert("소감문을 작성해주세요.");
         return;
@@ -271,17 +272,23 @@ document.getElementById("final-form").style.display = "block";
         console.log("Firebase 저장 성공!");
 
       const popup = document.getElementById("popup");
+      const overlay = document.getElementById("overlay");
+
         popup.innerText = "정보 수첩 열람 중... 🕵️‍♂️";
         popup.style.display = "block";
         popup.style.opacity = 1;
+
+        overlay.style.display = "block";
+        overlay.style.opacity = 1;
 
         // 2초 후 information.html로 이동
         setTimeout(() => {
           popup.style.opacity = 0;
           setTimeout(() => {
             popup.style.display = "none";
+            overlay.style.display = "none";
             window.location.href = "information.html";
-          }, 500); // fade-out 시간
+          }, 200); // fade-out 시간
         }, 3000);
       })
       .catch((error) => {

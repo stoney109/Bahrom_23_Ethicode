@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
 body {
+  display: flex;
+  justify-content: center;    /* 가로 가운데 */
+  align-items: center;        /* 세로 가운데 */
+  height: 100vh;              /* 전체 화면 높이 */
+  margin: 0;
+  padding: 0;
+
   background: url('background/background (2).jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Special Elite', serif;
@@ -28,6 +35,7 @@ body::before {
     url('https://www.transparenttextures.com/patterns/paper-fibers.png');
   background-blend-mode: overlay;
   padding: 60px 60px;
+  width: 100%;
   max-width: 800px;
   margin: 60px auto;
   border: none;
@@ -257,7 +265,7 @@ label {
   border: 2px solid #7b4b1c;
   border-radius: 4px;
   padding: 20px 30px;
-  font-size: 18px;
+  font-size: 24px;
 
   box-shadow: 3px 3px 15px rgba(0,0,0,0.3);
   display: none;
@@ -275,6 +283,8 @@ label {
   height: 100vh;
   background: rgba(0,0,0,0.5);
   z-index: 998;
+  display: none;
+  transition: opacity 0.3s ease;
 }
 
 /* -------------------------- */
@@ -311,7 +321,7 @@ h2.score-highlight {
   display: block;
   background: #fffdf6;
   border: 1px solid #fff8e7;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 20px;
   margin: 32px auto;
   max-width: 600px;

@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
 body {
+  display: flex;
+  justify-content: center;    /* 가로 가운데 */
+  align-items: center;        /* 세로 가운데 */
+  height: 100vh;              /* 전체 화면 높이 */
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+
   background: url('background/background (2).jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Special Elite', serif;
@@ -28,8 +36,9 @@ body::before {
     url('https://www.transparenttextures.com/patterns/paper-fibers.png');
   background-blend-mode: overlay;
   padding: 60px 60px;
+  width: 100%;
   max-width: 800px;
-  margin: 60px auto;
+  margin: 0 auto;
   border: none;
   border-radius: 4px;
   box-shadow:

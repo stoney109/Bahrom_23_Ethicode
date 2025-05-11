@@ -32,7 +32,6 @@
   <script>
     let current = 0;
     const slides = document.querySelectorAll('.slide');
-    let ticking = false;
 
     function showSlide(index) {
       slides.forEach((s, i) => {
@@ -41,26 +40,38 @@
       });
     }
 
+    let lastScrollTime = 0;
+    let scrollCooldown = 200; // 연속 입력 허용 간격 (ms)
+
     window.addEventListener('wheel', (e) => {
-      if (ticking) return;
-      ticking = true;
+      const now = Date.now();
+      if (now - lastScrollTime < scrollCooldown) return;
+      lastScrollTime = now;
+
       if (e.deltaY > 0 && current < slides.length - 1) current++;
       else if (e.deltaY < 0 && current > 0) current--;
       showSlide(current);
-      setTimeout(() => ticking = false, 700);
     });
 
+    let lastTouchTime = 0;
+    let touchCooldown = 200; // 터치 입력 간격
     let touchStartY = 0;
-    window.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY);
+
+    window.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    });
+
     window.addEventListener('touchend', e => {
       const deltaY = e.changedTouches[0].clientY - touchStartY;
-      if (ticking) return;
-      ticking = true;
+      const now = Date.now();
+      if (now - lastTouchTime < touchCooldown) return;
+      lastTouchTime = now;
+
       if (deltaY < -30 && current < slides.length - 1) current++;
       else if (deltaY > 30 && current > 0) current--;
       showSlide(current);
-      setTimeout(() => ticking = false, 700);
     });
+
 
     window.onload = () => {
       showSlide(current);
