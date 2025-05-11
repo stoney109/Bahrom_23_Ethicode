@@ -8,6 +8,8 @@
 </head>
 
 <body>
+  <div id="info-overlay"></div><div id="info-popup">👆 스크롤 또는 스와이프로 다음 페이지로 이동하세요!</div>
+
   <div class="slide-container">
     <div class="slide active"><img src="info/001.png" alt="1"></div>
     <div class="slide"><img src="info/002.png" alt="2"></div>
@@ -60,7 +62,25 @@
       setTimeout(() => ticking = false, 700);
     });
 
-    window.onload = () => showSlide(current);
+    window.onload = () => {
+      showSlide(current);
+
+      const popup = document.getElementById("info-popup");
+      const overlay = document.getElementById("info-overlay");
+
+      popup.style.display = 'block';
+      overlay.style.display = 'block';
+
+      setTimeout(() => {
+        popup.style.opacity = 0;
+        overlay.style.opacity = 0;
+        setTimeout(() => {
+          popup.style.display = 'none';
+          overlay.style.display = 'none';
+        }, 500);
+      }, 3000);
+    };
+
     function goToMain() {
       window.location.href = 'main.html';
     }

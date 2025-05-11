@@ -17,7 +17,7 @@
     <div id="user-form" class="form-container">
       <p class="intro">
         퀴즈를 시작하기 전에 정보를 입력해주세요!<br>
-        전화번호 추첨을 통해 기프티콘을 보내드릴 예정입니다.<br><br>
+        전화번호 추첨을 통해 <b>기프티콘</b>을 보내드릴 예정입니다.<br><br>
 
         <span style="color: #a0522d; font-weight: bold;">
           ⚠️ 본 퀴즈는 실제 사례를 기반으로 구성되었습니다.
@@ -25,7 +25,7 @@
         - 범죄자 정보는 FBI 공개 자료를 바탕으로 하였으며,<br>
         - 비범죄자는 누명을 쓰거나 잘못 지목되었던 실제 인물들의 정보를 기반으로 합니다.<br><br>
 
-        우리는 무엇을 보고 판단하게 될까요? 함께 추리해봅시다!🔍
+        우리는 무엇을 보고 판단하게 될까요? 함께 추리해봅시다!🔍<br><br><br>
       </p>
 
       <div class="form-row">
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <button class="btn" onclick="startQuiz()">퀴즈 시작</button>
+      <button class="btn" onclick="startQuiz()">시험 시작</button>
     </div>
 
     <!-- 퀴즈 영역 -->
@@ -58,10 +58,12 @@
     <div id="popup"></div>
 
     <!-- 소감문 작성 영역 -->
-    <div id="final-form" style="display:none;">
-      <h2>퀴즈가 끝났습니다! 소감문을 작성해주세요：</h2>
+    <div id="final-form" style="display: none;">
+      <h2 style="text-align: center;">탐정 자격시험이 끝났습니다! 소감문을 작성해주세요：</h2>
       <textarea id="feedback" placeholder="소감을 적어주세요..."></textarea><br>
-      <button class="btn" onclick="submitFeedback()">소감 제출</button>
+      <div style="text-align: center;">
+        <button class="btn" onclick="submitFeedback()">다음으로...</button>
+      </div>
     </div>
   </div>
 
@@ -150,11 +152,11 @@
 
               <div class="right-side">
                 <div class="profile-info">
-                  <p><strong>이름：</strong> ${q.name}</p>
-                  <p><strong>출생연도：</strong> ${q.birth}
-                  <p><strong>국적：</strong> ${q.origin}</p>
-                  <p><strong>키 / 몸무게：</strong> ${q.heightWeight}</p>
-                  <p><strong>인종：</strong> ${q.race}</p>
+                  <p><strong>이름：</strong> ${q.name}<br>
+                  <strong>출생연도：</strong> ${q.birth}<br>
+                  <strong>국적：</strong> ${q.origin}<br>
+                  <strong>키 / 몸무게：</strong> ${q.heightWeight}<br>
+                  <strong>인종：</strong> ${q.race}</p>
                 </div>
 
                 <div class="buttons">
@@ -170,19 +172,29 @@
             quizContainer.style.opacity = 1;
           }, 50);
         };
-      } else {
+      }
+      else {
+        document.querySelector('header h1').innerHTML = '탐정 자격 시험 종료!';
+
         let resultMessage = '';
-      if (score >= 12) {
-        resultMessage = '훗, 우수한 탐정이군. 그래도 정보 수첩으 한번 확인해봐.';
-      } else if (score >= 6) {
-        resultMessage = '조금만 더 노력하면, 우수한 탐정이 될 수 있겠는 걸? 정보 수첩을 한 번 읽어보게나.';
-      } else {
-        resultMessage = '탐정이 되기 위해 노력이 필요하겠는 걸... 정보 수첩을 읽어보게나.';
+        if (score >= 12) {
+          resultMessage = '훌륭해. 자네라면 금방이라도 실전에 투입할 수 있겠군. 그래도 정보 수첩은 한 번쯤 훑어보게.';
+        } else if (score >= 6) {
+          resultMessage = '기본기는 갖췄지만, 아직 감이 부족하군. 정보 수첩으로 복습하며 실력을 다져보게.';
+        } else {
+          resultMessage = '추리에 앞서 노력이 필요하겠는 걸... 정보 수첩부터 다시 펼쳐보게나.';
       }
 
 quizContainer.innerHTML = `
-  <h2>퀴즈 종료! 당신의 점수는 ${score}점입니다.</h2>
-  <p class="result-message">${resultMessage}</p>
+  <div style="text-align: center;">
+    <p class="intro">당신의 추리는...</p>
+    <h2 style="color: #a94442; font-size: 2.5em; margin-top: 4px;">${score}점</h2>
+
+    <div class="advisor-box">
+      <div class="advisor-label">선배 탐정의 메모 📝️</div>
+      <div class="advisor-message">${resultMessage}</div>
+    </div>
+  </div>
 `;
 
 document.getElementById("final-form").style.display = "block";
@@ -212,7 +224,7 @@ document.getElementById("final-form").style.display = "block";
 
       // 범죄자인 경우, 정오답 관계없이 범죄 내용 보여줌
       if (currentData.answer === "O" && currentData.crime && currentData.crime !== "없음") {
-        popupMessage += `\n📌 범죄 내용: ${currentData.crime}`;
+        popupMessage += `\n📌 범죄 내용： ${currentData.crime}`;
       }
 
       // 팝업 및 배경 표시
@@ -220,6 +232,13 @@ document.getElementById("final-form").style.display = "block";
       popup.style.display = "block";
       popup.style.opacity = 1;
       overlay.style.display = "block";
+
+      // 테스트용 팝업 생략
+      <!--popup.style.opacity = 0;-->
+      <!--popup.style.display = "none";-->
+      <!--overlay.style.display = "none";-->
+      <!--currentQuestion++;-->
+      <!--loadQuestion();-->
 
       // 1.5초 후 자동으로 팝업 숨기기
       setTimeout(() => {
@@ -230,7 +249,7 @@ document.getElementById("final-form").style.display = "block";
           currentQuestion++;
           loadQuestion();   // 다음 문제로 이동
         }, 500);
-      }, 1500);
+      }, 1300);
     }
 
     function submitFeedback() {
@@ -252,7 +271,7 @@ document.getElementById("final-form").style.display = "block";
         console.log("Firebase 저장 성공!");
 
       const popup = document.getElementById("popup");
-        popup.innerText = "정보 수첩으로 이동 중 🕵️‍♂️";
+        popup.innerText = "정보 수첩 열람 중... 🕵️‍♂️";
         popup.style.display = "block";
         popup.style.opacity = 1;
 

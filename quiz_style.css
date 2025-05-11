@@ -1,12 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
 body {
-  background: url('parchment.jpg') no-repeat center center fixed;
+  background: url('background/background (2).jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Special Elite', serif;
   color: #2b2b2b;
   margin: 0;
   padding: 0;
+
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(72, 41, 15, 0.5); /* 어두운 갈색 */
+  z-index: -1;
 }
 
 /* -------------------------- */
@@ -21,6 +31,7 @@ body {
   max-width: 800px;
   margin: 60px auto;
   border: none;
+  border-radius: 4px;
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.25),
     0 12px 24px rgba(0, 0, 0, 0.15);
@@ -53,7 +64,7 @@ h1 {
 /* -------------------------- */
 .intro {
   text-align: center;
-  margin: 20px 0;
+  margin: 6px 0 4px 0;
   line-height: 1.6;
 }
 
@@ -71,7 +82,7 @@ h1 {
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid #3e2d1b;
   transition: background 0.3s;
   min-width: 100px;
@@ -141,15 +152,28 @@ label {
 .quiz-flex-box {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 40px;
   margin: 0 auto;
   max-width: 650px;
 }
 
+.left-side, .right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 위: 정보 / 아래: 버튼 */
+}
+
 .left-side {
   flex: 1;
   max-width: 300px;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .profile-img {
@@ -159,18 +183,10 @@ label {
 }
 
 .photo-frame {
-  background: #ffffff;
+  background: #fefbf5;
   padding: 12px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 4px rgba(0, 0, 0, 0.5);
   border: 1px solid #e0d2b4; /* 은은한 종이 테두리 느낌 */
-}
-
-.right-side {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
 }
 
 .right-side .question {
@@ -180,6 +196,7 @@ label {
 
 .profile-info p {
   margin: 6px 0;
+  margin-top: 24px;
   font-size: 16px;
   line-height: 1.6;
 }
@@ -187,16 +204,26 @@ label {
 /* 퀴즈용 특별 버튼 */
 .buttons {
   display: flex;
-  justify-content: flex-start;  /* 좌측 정렬 유지 (정보와 일치) */
+  justify-content: center;  /* 좌측 정렬 유지 (정보와 일치) */
   gap: 20px;
-  margin-top: 80px;
+  margin-top: auto;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 40px;
-  padding: 25px 50px;
+  line-height: 40px;
+  height: 80px;
+  padding: 8px 50px 0 50px; /* ✅ 가로 넉넉히 */
+  transform: translateY(4px); /* ✅ 살짝 아래 배치 */
+
   border: none;
-  border-radius: 12px;
+  border-radius: 4px;
   font-family: 'Special Elite', serif;
   color: #fff;
   cursor: pointer;
@@ -228,9 +255,10 @@ label {
   background: #fff8dc;
   color: #3e2d1b;
   border: 2px solid #7b4b1c;
+  border-radius: 4px;
   padding: 20px 30px;
   font-size: 18px;
-  border-radius: 10px;
+
   box-shadow: 3px 3px 15px rgba(0,0,0,0.3);
   display: none;
   z-index: 999;
@@ -252,13 +280,18 @@ label {
 /* -------------------------- */
 /* 소감문 영역 */
 /* -------------------------- */
+h2.score-highlight {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
 #final-form textarea {
   width: 90%;
   height: 100px;
   font-size: 16px;
   font-family: 'Special Elite', serif;
   padding: 10px;
-  border: 2px solid #a9714b;
+  border: 1px solid #a9714b;
   border-radius: 4px;
   resize: none;
   background: #fff8e7;
@@ -266,6 +299,37 @@ label {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+#final-form .btn {
+  display: block;       /* flex → block */
+  margin: 20px auto 0;  /* 상단 여백 + 가운데 정렬 */
+}
+
+/* 선배 탐정 조언 박스 */
+.advisor-box {
+  display: block;
+  background: #fffdf6;
+  border: 1px solid #fff8e7;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 32px auto;
+  max-width: 600px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.advisor-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #5c3513;
+}
+
+.advisor-message {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #3a2a1b;
 }
 
 /* -------------------------- */
