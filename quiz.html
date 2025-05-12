@@ -36,8 +36,16 @@
       <!-- 성별 선택 -->
     <div class="form-row">
       <label>성별：</label>
-      <label><input type="radio" name="gender" value="남성"> 남성</label>
-      <label><input type="radio" name="gender" value="여성"> 여성</label>
+      <div class="gender-options">
+        <label class="radio-label">
+          <input type="radio" name="gender" value="남성">
+          <span>남성</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="gender" value="여성">
+          <span>여성</span>
+        </label>
+      </div>
     </div>
 
     <!-- 나이대 선택 -->
@@ -243,12 +251,14 @@ document.getElementById("final-form").style.display = "block";
       const currentData = quizData[currentQuestion];
 
       // 정답 여부 기본 메시지
-      let popupMessage = isCorrect ? "정답입니다!" : "오답입니다!";
+      let popupMessage = `
+      ${isCorrect ? "✅ 정답입니다!" : "❌ 오답입니다!"}
+      ────────────────────────────
+      ${currentData.answer === "O" && currentData.crime !== "없음"
+        ? `🚨️ 범죄 내용： ${currentData.crime}`
+        : "🏳️ 이 인물은 범죄자가 아닙니다."}
 
-      // 범죄자인 경우, 정오답 관계없이 범죄 내용 보여줌
-      if (currentData.answer === "O" && currentData.crime && currentData.crime !== "없음") {
-        popupMessage += `\n📌 범죄 내용： ${currentData.crime}`;
-      }
+      `;
 
       // 팝업 및 배경 표시
       popup.innerText = popupMessage;
@@ -285,6 +295,8 @@ document.getElementById("final-form").style.display = "block";
 
       db.collection("responses").add({
         username,
+        gender,
+        age,
         phone,
         score,
         answers: userAnswers,

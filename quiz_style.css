@@ -117,6 +117,54 @@ h1 {
   line-height: 1.6;
 }
 
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 0px;
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+  display: none;
+}
+
+.radio-label span {
+  padding: 6px 20px;
+  border: 2px solid #7b4b1c;
+  border-radius: 4px;
+  background-color: #fffdf6;
+  color: #7b4b1c;
+  font-family: sans-serif;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.radio-label input[type="radio"]:checked + span {
+  background-color: #7b4b1c;
+  color: white;
+}
+
+.gender-options {
+  display: flex;
+  gap: 0px; /* 버튼 간격 */
+}
+
+#age {
+  border: none;
+  border-bottom: 2px solid #7b4b1c;
+  background: transparent;
+  font-size: 16px;
+  padding: 4px 8px;
+  width: 200px;
+  text-align: center;
+  color: #2b2b2b;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20fill='%237b4b1c'%20height='24'%20viewBox='0%200%2024%2024'%20width='24'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M7%2010l5%205%205-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 16px;
+}
+
 .phone-part {
   border: none;
   border-bottom: 2px solid #7b4b1c;
@@ -205,7 +253,7 @@ label {
 .profile-info p {
   margin: 6px 0;
   margin-top: 24px;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.6;
 }
 
@@ -299,7 +347,7 @@ h2.score-highlight {
   width: 90%;
   height: 100px;
   font-size: 16px;
-  font-family: 'Special Elite', serif;
+  font-family: sans-serif;
   padding: 10px;
   border: 1px solid #a9714b;
   border-radius: 4px;
