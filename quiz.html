@@ -33,6 +33,27 @@
         <input type="text" id="username" required class="underline-input">
       </div>
 
+      <!-- 성별 선택 -->
+    <div class="form-row">
+      <label>성별：</label>
+      <label><input type="radio" name="gender" value="남성"> 남성</label>
+      <label><input type="radio" name="gender" value="여성"> 여성</label>
+    </div>
+
+    <!-- 나이대 선택 -->
+    <div class="form-row">
+      <label for="age">나이대：</label>
+      <select id="age" required>
+        <option value="">선택해주세요</option>
+        <option value="10대">10대</option>
+        <option value="20대">20대</option>
+        <option value="30대">30대</option>
+        <option value="40대">40대</option>
+        <option value="50대">50대</option>
+        <option value="60대 이상">60대 이상</option>
+      </select>
+    </div>
+
 
       <div class="form-row">
         <label for="phone1">전화번호：</label>
@@ -104,14 +125,16 @@
       const phone3 = document.getElementById("phone3").value.trim();
       phone = `${phone1}-${phone2}-${phone3}`;
 
-      //gender = document.querySelector('input[name="gender"]:checked')?.value;
-      //age = document.getElementById("age").value;
+      gender = document.querySelector('input[name="gender"]:checked')?.value;
+      age = document.getElementById("age").value;
 
       if (
         !username ||
         phone1.length < 3 ||
         phone2.length < 3 ||
-        phone3.length < 4
+        phone3.length < 4 ||
+        !gender ||
+        !age
       ) {
       alert("모든 항목을 정확히 입력해주세요.");
       return;
