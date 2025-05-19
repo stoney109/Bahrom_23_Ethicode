@@ -104,11 +104,13 @@
     <!-- 소감문 작성 영역 -->
 
     <div id="final-form" style="display: none;">
-      <br>
-      <textarea id="feedback" placeholder="자네의 범인 추리의 기준은 무엇이었나? 느낀 바도 궁금하네.
-예를 들어 무엇을 보고 범인인지 아닌지 판단했는지 말일세. "></textarea><br>
+      <p style="text-align: center; font-size: 18px; font-weight: bold; margin-top: 24px; color: #7b4b1c;">
+        -
+      </p>
+      <textarea id="feedback" placeholder="자네는 어떤 기준으로 범인을 추리했는가?
+망설였던 순간이나, 찜찜했던 판단도 좋네. 느낀 바를 자유롭게 남겨주게나."></textarea><br>
       <div style="text-align: center;">
-        <button class="btn" onclick="submitFeedback()">자격시험 종료</button>
+        <button class="btn" onclick="submitFeedback()">자격 시험 종료</button>
       </div>
     </div>
   </div>
@@ -245,7 +247,6 @@
       }
 
 quizContainer.innerHTML = `
-  <div style="text-align: center;">
     <p class="intro">당신의 추리는...</p>
     <h2 style="color: #a94442; font-size: 2.5em; margin-top: 4px;">${score}점</h2>
 
@@ -257,12 +258,13 @@ quizContainer.innerHTML = `
     <div class="purpose-box">
       <div class="purpose-label">이 체험의 목적은?</div>
       <div class="purpose-message">
-        이 체험은 <strong>제한된, 편향된 정보에만 의존한 판단이 얼마나 쉽게 틀릴 수 있는지</strong>를 직접 느껴보기 위한 설문입니다.<br><br>
+        <strong>제한된, 편향된 정보에 의존한 판단이 얼마나 쉽게 틀릴 수 있는지</strong> 직접 느껴보기 위한 설문입니다.<br><br>
         이를 통해, <strong>① 사람의 편향이 담긴 데이터는 완벽할 수 없고</strong>,<br>
-        <strong>② 그 데이터를 학습한 AI 역시 편향될 수 있다</strong>는 점을 함께 생각해보려 합니다.<br><br>
-      </div>
+        <strong>② 그 데이터를 학습한 AI 역시 편향될 수 있다</strong>는 점을 알리고자 하였습니다.<br><br>
+        이러한 편향된 AI는 실제로 <strong style="color: #a0522d;">인권을 침해</strong>할 수 있습니다.<br>
+        그 구체적인 사례가 궁금하다면, 아래 버튼을 통해 제출 후 <strong>‘정보 수첩’</strong>을 확인해보세요!
+      </div.
     </div>
-  </div>
 `;
 
 document.getElementById("final-form").style.display = "block";

@@ -288,7 +288,7 @@ label {
 .profile-info p {
   margin: 6px 0;
   margin-top: 24px;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.6;
 }
 
@@ -449,7 +449,7 @@ h2.score-highlight {
 
 .purpose-label {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   color: #5c3513;
   margin-bottom: 6px;
 }
