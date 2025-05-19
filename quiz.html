@@ -20,18 +20,18 @@
         퀴즈를 시작하기 전에 정보를 입력해주세요!<br>
         전화번호 추첨을 통해 <b>기프티콘</b>을 보내드릴 예정입니다.<br><br>
 
-        <span style="color: #a0522d; font-weight: bold;">
-          ⚠️ 본 퀴즈는 실제 사례를 기반으로 구성되었습니다.
-        </span><br>
-        - 범죄자 정보는 FBI 공개 자료를 바탕으로 하였으며,<br>
-        - 비범죄자는 누명을 쓰거나 잘못 지목되었던 실제 인물들의 정보를 기반으로 합니다.<br><br>
+<!--        <span style="color: #a0522d; font-weight: bold;">-->
+<!--          ⚠️ 본 퀴즈는 실제 사례를 기반으로 구성되었습니다.-->
+<!--        </span><br>-->
+<!--        - 범죄자 정보는 FBI 공개 자료를 바탕으로 하였으며,<br>-->
+<!--        - 비범죄자는 누명을 쓰거나 잘못 지목되었던 실제 인물들의 정보를 기반으로 합니다.<br><br>-->
 
-        우리는 무엇을 보고 판단하게 될까요? 함께 추리해봅시다!🔍<br><br>
+<!--        우리는 무엇을 보고 판단하게 될까요? 함께 추리해봅시다!🔍<br><br>-->
 
         <span style="font-size: 0.9em; color: #555;">
         ※ 입력하신 정보는 AI 편향 탐색 활동의 통계 분석 및 참여 확인을 위한 용도로만 사용되며,<br>
         모든 데이터는 익명 처리되어 외부에 공개되지 않습니다.<br>
-        익명을 원하시면 별명과 '010-0000-0000' 등 임의의 정보로 작성하셔도 무방합니다.
+        <b>※ 익명을 원하시면 이름과 전화번호 칸에 아무것도 입력하지 않고 다음을 누르세요.</b>
         </span><br><br><br>
       </p>
 
@@ -88,15 +88,25 @@
     <div id="quiz-container" style="display:none;"></div>
 
     <!-- overlay  -->
-<div id="overlay" style="display:none;"></div>
+    <div id="overlay" style="display:none;"></div>
+
+    <!-- 퀴즈 안내 오버레이 -->
+    <div id="instruction-overlay" style="display: none;">
+      <div class="instruction-content">
+        <img src="info/instruction.jpg" alt="퀴즈 안내 이미지" class="instruction-image" />
+        <button class="btn" onclick="closeInstruction()">이해했습니다!</button>
+      </div>
+    </div>
 
     <!-- 정답 여부 팝업 -->
     <div id="popup"></div>
 
     <!-- 소감문 작성 영역 -->
     <div id="final-form" style="display: none;">
-      <h2 style="text-align: center;">탐정 자격시험이 끝났습니다! 소감문을 작성해주세요：</h2>
-      <textarea id="feedback" placeholder="소감을 적어주세요..."></textarea><br>
+      <p style="text-align: center; font-size: 18px; font-weight: bold; margin-top: 24px;">
+        탐정 자격시험이 끝났습니다!<br>여러분의 추리 방식이나 느낀 점을 작성해주세요!
+      </p>
+      <textarea id="feedback" placeholder="‘범인인지 아닌지’ 어떻게 판단했나요?"></textarea><br>
       <div style="text-align: center;">
         <button class="btn" onclick="submitFeedback()">다음으로...</button>
       </div>
@@ -143,29 +153,38 @@
       gender = document.querySelector('input[name="gender"]:checked')?.value;
       age = document.getElementById("age").value;
 
-      if (
-        !username ||
-        phone1.length < 3 ||
-        phone2.length < 3 ||
-        phone3.length < 4 ||
-        !gender ||
-        !age
-      ) {
-      alert("모든 항목을 정확히 입력해주세요.");
-      return;
-    }
+      // 이름/전화번호 예외 처리
+      if (!username || username === '') {
+        username = '익명';
+      }
+
+      if (phone1 === '' || phone2 === '' || phone3 === '') {
+        phone = '010-0000-0000';
+      } else {
+        phone = `${phone1}-${phone2}-${phone3}`;
+      }
+
+      // 성별/나이대는 여전히 필수
+      if (!gender || !age) {
+        alert("성별과 나이대는 반드시 선택해주세요.");
+        return;
+      }
 
       document.querySelector('header .icon').style.display = 'none';
-      document.querySelector('header h1').innerHTML = '과연 사진 속의 인물은 <span class="highlight">범인</span>일까요?';
+      document.querySelector('header h1').innerHTML = '과연 사진 속의 인물은 <span class="highlight">범죄자</span>일까요?';
 
-      // 사용자 정보 입력 폼 숨기기
+      // 사용자 정보 저장만 해두고 퀴즈는 아직 시작하지 않음
       document.getElementById("user-form").style.display = "none";
+      document.getElementById("instruction-overlay").style.display = "flex";
+    }
 
-      // 퀴즈 화면 보이기
+    function closeInstruction() {
+      document.querySelector('header .icon').style.display = 'none';
+      document.querySelector('header h1').innerHTML = '과연 사진 속의 인물은 <span class="highlight">범죄자</span>일까요?';
+
+      document.getElementById("instruction-overlay").style.display = "none";
       document.getElementById("quiz-container").style.display = "block";
-
-      // 첫 번째 문제 로드
-      loadQuestion();
+      loadQuestion(); // 퀴즈 시작
     }
 
     function loadQuestion() {
@@ -204,6 +223,8 @@
               </div>
 
             </div>
+
+            <div class="question-progress">${currentQuestion + 1} / ${quizData.length}</div>
           `;
           // 부드럽게 보이게 하기
           setTimeout(() => {
@@ -229,8 +250,18 @@ quizContainer.innerHTML = `
     <h2 style="color: #a94442; font-size: 2.5em; margin-top: 4px;">${score}점</h2>
 
     <div class="advisor-box">
-      <div class="advisor-label">선배 탐정의 메모 📝️</div>
+      <div class="advisor-label">🕵️ 선배 탐정의 메모 📝️</div>
       <div class="advisor-message">${resultMessage}</div>
+    </div>
+
+    <div class="purpose-box">
+      <div class="purpose-label">이 체험의 목적은?</div>
+      <div class="purpose-message">
+        우리는 외모와 몇 가지 기본 정보만 보고, 범죄자를 정확히 구분할 수 있을까요?<br>
+        이 체험은 <strong>제한된, 편향된 정보에만 의존한 판단이 얼마나 쉽게 틀릴 수 있는지</strong>를 직접 느껴보기 위한 실험입니다.<br><br>
+        이를 통해, <strong>① 사람의 편향이 담긴 데이터는 완벽할 수 없고</strong>,<br>
+        <strong>② 그 데이터를 학습한 AI 역시 편향될 수 있다</strong>는 점을 함께 생각해보려 합니다.
+      </div>
     </div>
   </div>
 `;
